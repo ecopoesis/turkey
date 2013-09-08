@@ -3,13 +3,18 @@ use<Write/Write.scad>
 $fn = 10;
 $text="Turkey!";
 
-union() {
-	feathers();
-	body();
-	head();
-	beak();
-	wings();
-	base();
+difference() {
+	union() {
+		feathers();
+		body();
+		head();
+		beak();
+		wings();
+		base();
+	}
+
+	translate([-200, -100, -100])
+	cube([200, 200, 200]);
 }
 
 module base() {
