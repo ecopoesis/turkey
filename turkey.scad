@@ -1,16 +1,24 @@
 use<Write/Write.scad>
 
-$fn = 10;
+$fn = 30;
 $text="Turkey!";
 
 difference() {
 	union() {
-		feathers();
-		body();
-		head();
-		beak();
-		wings();
-		base();
+		color("SaddleBrown") {
+			body();
+			head();
+			wings();
+			text();
+			feathers(false);
+		}
+
+		color("OrangeRed") {
+			beak();
+			base();
+			feathers(true);
+		}
+
 	}
 
 	translate([-200, -100, -100])
@@ -18,22 +26,22 @@ difference() {
 }
 
 module base() {
-	union() {
-		translate([102,0,-27])
-		rotate(a=-45, v=[0,1,0])
-		rotate(a=90, v=[1,0,0])
-		rotate(a=90, v=[0,1,0])		
-		write($text,h=11,t=4,center=true);
-		
-		difference() {
-			translate([0,-75,-35])
-			cube([110, 150, 15]);	
+	difference() {
+		translate([0,-75,-35])
+		cube([110, 150, 15]);	
 
-			translate([110,-75,-35])
-			rotate(a=-45, v=[0,1,0])
-			cube([20, 150, 30]);
-		}
-	}	
+		translate([110,-75,-35])
+		rotate(a=-45, v=[0,1,0])
+		cube([20, 150, 30]);
+	}
+}
+
+module text() {
+	translate([102,0,-27])
+	rotate(a=-45, v=[0,1,0])
+	rotate(a=90, v=[1,0,0])
+	rotate(a=90, v=[0,1,0])		
+	write($text,h=11,t=4,center=true);
 }
 
 module wings() {
@@ -87,10 +95,24 @@ module body() {
 	sphere(r=40);
 }
 
-module feathers() {
-	for(i = [-10 : 10]) {
-		rotate(a=10*i, v=[1, 0, 0])  
-		feather(75, 15, 5);
+module feathers(odd) {
+	union() {
+		difference() {
+			feathers_raw(odd);
+
+			if (!odd) {
+				feathers_raw(!odd);
+			}	
+		}
+	}
+}
+
+module feathers_raw(odd) {
+	for(i = [-5 : 5]) {
+		if ((i % 2 != 0 && !odd) || (i % 2 == 0 && odd)) {
+			rotate(a=20*i, v=[1, 0, 0])  
+			feather(75, 30, 7);
+		}
 	}
 }
 
