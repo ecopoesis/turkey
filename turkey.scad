@@ -79,7 +79,7 @@ module head() {
 	difference() {
 		translate([85, 0, 35])
 		resize([34,34,40])
-		sphere(r=17);
+		sphere(r=17, $fn=100);
 
 		translate([99, 7, 45])
 		sphere(r=3);
@@ -92,7 +92,7 @@ module head() {
 module body() {
 	translate([40, 0, 10])
 	resize([100, 80, 70])
-	sphere(r=40);
+	sphere(r=40, $fn=100);
 }
 
 module feathers(odd) {
