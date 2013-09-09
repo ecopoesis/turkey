@@ -50,11 +50,6 @@ module wings() {
 	mirror([0,1,0]) {
 		wing();
 	}
-
-/*	translate([58,-35,0])
-	rotate(a=-10, v=[1,0,0])
-	rotate(a=12, v=[0,0,1])
-	wing();*/
 }
 
 module wing() {
@@ -82,7 +77,7 @@ module wing() {
 module beak() {
 	translate([110, 0, 38])
 	rotate(a=-90, v=[0, 1, 0])
-	resize([12, 16, 15])
+	resize([15, 16, 15])
 	cylinder(h=15, r1=0, r2=8);	
 }
 
@@ -90,6 +85,7 @@ module head() {
 	difference() {
 		translate([85, 0, 35])
 		resize([34,34,40])
+		rotate(a=20, v=[0,1,0])
 		sphere(r=17, $fn=100);
 
 		translate([99, 7, 45])
