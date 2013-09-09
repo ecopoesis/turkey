@@ -45,25 +45,36 @@ module text() {
 }
 
 module wings() {
-	translate([58,28,0])
-	rotate(a=10, v=[1,0,0])
-	rotate(a=-12, v=[0,0,1])
-	wing();
+	wing(); 
 
-	translate([58,-35,0])
+	mirror([0,1,0]) {
+		wing();
+	}
+
+/*	translate([58,-35,0])
 	rotate(a=-10, v=[1,0,0])
 	rotate(a=12, v=[0,0,1])
-	wing();
+	wing();*/
 }
 
 module wing() {
+	translate([58,28,0])
+	rotate(a=10, v=[1,0,0])
+	rotate(a=-12, v=[0,0,1])
+
 	rotate(a=-90, v=[1,0,0])
 	rotate(a=190, v=[0,0,1])
 	resize([50,30,20])
 	minkowski() {
-		linear_extrude(1)
-		polygon([[2,1], [0,4], [8,6], [8,0]]);
+		difference() {			
+			linear_extrude(1)
+			polygon([[2,1], [0,4], [8,6], [8,0]]);
 
+			translate([8,0,0])
+			rotate(a=-30, v=[0,1,0])
+			cube([10,10,10]);
+		}
+	
 		sphere(r=1);
 	}	
 }
